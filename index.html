@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Exame de Consciência e Reconciliação</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/81/81144.png">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = { darkMode: 'class' }
@@ -246,12 +250,10 @@
         ];
 
         let currentStep = -2;
-        
-        // Estrutura atualizada para salvar escolhas temporárias por passo
         let confessionData = { 
             time: "1 mês", 
             state: "casado", 
-            selections: {} // { passo_0: [pecados], passo_1: [pecados]... }
+            selections: {} 
         };
         const appContainer = document.getElementById('app-container');
 
@@ -295,7 +297,6 @@
                 </div>
             `;
             
-            // Preenche valores salvos (se o usuário usou o Voltar)
             document.getElementById('time-select').value = confessionData.time;
             document.getElementById('state-select').value = confessionData.state;
         }
@@ -315,8 +316,6 @@
 
             const cat = categories[currentStep];
             const filteredSins = cat.sins.filter(s => s.tags.includes('todos') || s.tags.includes(confessionData.state));
-
-            // Resgata o histórico desta aba, caso o usuário esteja voltando
             const savedSelections = confessionData.selections[currentStep] || [];
 
             if (filteredSins.length === 0) {
@@ -326,7 +325,6 @@
             }
 
             let sinsHTML = filteredSins.map((sin, index) => {
-                // Checa se o usuário já havia marcado este pecado
                 const savedSin = savedSelections.find(s => s.sinText === sin.text);
                 const isChecked = !!savedSin;
                 const freqVal = (isChecked && savedSin.frequency !== "frequência não informada") ? savedSin.frequency : "";
@@ -370,8 +368,6 @@
 
         function saveCategoryAndNext(sinsCount) {
             const cat = categories[currentStep];
-            
-            // Cria ou limpa a lista do passo atual
             confessionData.selections[currentStep] = [];
 
             for(let i = 0; i < sinsCount; i++) {
@@ -397,13 +393,11 @@
         }
 
         function goBackFromFinal() {
-            // Volta para a última pergunta (Sem perder nada)
             currentStep = categories.length - 1;
             renderCategory();
         }
 
         function renderFinalScript() {
-            // Junta todas as seleções em um único array
             let flatSins = [];
             for (let i = 0; i < categories.length; i++) {
                 if (confessionData.selections[i]) {
@@ -411,7 +405,6 @@
                 }
             }
 
-            // Auto-detecta pecado do preceito de 1 ano
             const tempo = confessionData.time;
             if (tempo === "1 ano" || tempo === "vários anos") {
                 const preceitoText = "Deixei de me confessar ao menos uma vez ao ano.";
