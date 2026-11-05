@@ -45,7 +45,7 @@
             <strong>Privacidade absoluta:</strong> Tudo o que você ler ou marcar aqui fica apenas neste aparelho. Nenhum dado é salvo.
         </div>
 
-        <!-- ABA 1: INSTRUÇÕES (A versão completa e profunda) -->
+        <!-- ABA 1: INSTRUÇÕES -->
         <div id="content-instrucoes" class="fade-in">
             <h2 class="text-xl font-semibold text-slate-700 dark:text-slate-200 mb-4">Os 5 Passos para uma Boa Confissão</h2>
             <p class="text-slate-600 dark:text-slate-400 text-sm mb-6">Para que a sua confissão seja válida e você seja verdadeiramente perdoado, a Igreja ensina que é necessário preencher cinco condições:</p>
@@ -152,7 +152,6 @@
             document.getElementById('content-instrucoes').classList.add('hidden');
             document.getElementById('content-exame').classList.add('hidden');
             
-            // Remove active classes
             document.getElementById('tab-instrucoes').classList.remove('bg-slate-100', 'dark:bg-slate-700', 'text-slate-800', 'dark:text-slate-100');
             document.getElementById('tab-instrucoes').classList.add('text-slate-500', 'dark:text-slate-400');
             
@@ -162,11 +161,9 @@
             if(tabId === 'instrucoes') {
                 document.getElementById('content-instrucoes').classList.remove('hidden');
                 document.getElementById('tab-instrucoes').classList.add('bg-slate-100', 'dark:bg-slate-700', 'text-slate-800', 'dark:text-slate-100');
-                document.getElementById('tab-instrucoes').classList.remove('text-slate-500', 'dark:text-slate-400');
             } else {
                 document.getElementById('content-exame').classList.remove('hidden');
                 document.getElementById('tab-exame').classList.add('bg-slate-100', 'dark:bg-slate-700', 'text-slate-800', 'dark:text-slate-100');
-                document.getElementById('tab-exame').classList.remove('text-slate-500', 'dark:text-slate-400');
                 
                 if(currentStep === -2) {
                     currentStep = -1;
@@ -175,7 +172,6 @@
             }
         }
 
-        // === CATEGORIAS COMPLETAS (COM TAGS DE ESTADO DE VIDA) ===
         const categories = [
             {
                 title: "1º e 2º Mandamentos: Amor a Deus e Seu Santo Nome",
@@ -250,7 +246,13 @@
         ];
 
         let currentStep = -2;
-        let confessionData = { time: "", state: "", sinsCommitted: [] };
+        
+        // Estrutura atualizada para salvar escolhas temporárias por passo
+        let confessionData = { 
+            time: "1 mês", 
+            state: "casado", 
+            selections: {} // { passo_0: [pecados], passo_1: [pecados]... }
+        };
         const appContainer = document.getElementById('app-container');
 
         function startIntro() {
@@ -266,8 +268,8 @@
                             <option value="alguns meses">Há alguns meses</option>
                             <option value="1 ano">Há 1 ano</option>
                             <option value="vários anos">Há vários anos</option>
-                            <option value="não me lembro exatamente">Não me lembro exatamente quando foi</option>
-                            <option value="esta é a minha primeira confissão">Esta é a minha primeira confissão</option>
+                            <option value="não me lembro exatamente">Não me lembro exatamente</option>
+                            <option value="esta é a minha primeira confissão">É a minha primeira confissão</option>
                         </select>
                     </div>
 
@@ -289,9 +291,13 @@
                         <p class="text-sm text-indigo-700 dark:text-indigo-400 italic font-serif">"Vinde, Espírito Santo, iluminai a minha mente para que eu conheça os meus pecados, e tocai o meu coração para que eu me arrependa verdadeiramente deles. Amém."</p>
                     </div>
 
-                    <button onclick="saveIntroAndNext()" class="w-full bg-slate-800 dark:bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-slate-700 dark:hover:bg-blue-700 transition shadow-sm">Continuar Exame</button>
+                    <button onclick="saveIntroAndNext()" class="w-full bg-slate-800 dark:bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-slate-700 dark:hover:bg-blue-700 transition shadow-sm">Começar Exame</button>
                 </div>
             `;
+            
+            // Preenche valores salvos (se o usuário usou o Voltar)
+            document.getElementById('time-select').value = confessionData.time;
+            document.getElementById('state-select').value = confessionData.state;
         }
 
         function saveIntroAndNext() {
@@ -308,9 +314,10 @@
             }
 
             const cat = categories[currentStep];
-            
-            // Filtra os pecados da categoria baseados no estado de vida
             const filteredSins = cat.sins.filter(s => s.tags.includes('todos') || s.tags.includes(confessionData.state));
+
+            // Resgata o histórico desta aba, caso o usuário esteja voltando
+            const savedSelections = confessionData.selections[currentStep] || [];
 
             if (filteredSins.length === 0) {
                 currentStep++;
@@ -318,29 +325,40 @@
                 return;
             }
 
-            let sinsHTML = filteredSins.map((sin, index) => `
+            let sinsHTML = filteredSins.map((sin, index) => {
+                // Checa se o usuário já havia marcado este pecado
+                const savedSin = savedSelections.find(s => s.sinText === sin.text);
+                const isChecked = !!savedSin;
+                const freqVal = (isChecked && savedSin.frequency !== "frequência não informada") ? savedSin.frequency : "";
+                const hiddenClass = isChecked ? "" : "hidden";
+
+                return `
                 <div class="border border-slate-200 dark:border-slate-700 rounded-lg p-3 mb-3 hover:bg-slate-50 dark:hover:bg-slate-700 transition bg-white dark:bg-slate-800 shadow-sm">
                     <label class="flex items-start gap-3 cursor-pointer">
-                        <input type="checkbox" id="sin-${currentStep}-${index}" value="${sin.text}" class="mt-1 w-4 h-4 text-blue-600 rounded border-slate-300 dark:border-slate-600 focus:ring-blue-500 dark:bg-slate-700" onchange="toggleFreq(${currentStep}, ${index})">
+                        <input type="checkbox" id="sin-${currentStep}-${index}" value="${sin.text}" ${isChecked ? "checked" : ""} class="mt-1 w-4 h-4 text-blue-600 rounded border-slate-300 dark:border-slate-600 focus:ring-blue-500 dark:bg-slate-700" onchange="toggleFreq(${currentStep}, ${index})">
                         <span class="text-slate-700 dark:text-slate-300 text-sm leading-snug">${sin.text}</span>
                     </label>
-                    <div id="freq-container-${currentStep}-${index}" class="hidden mt-3 ml-7">
-                        <input type="text" id="freq-${currentStep}-${index}" placeholder="Quantas vezes? (Ex: 2 vezes, sempre...)" class="w-full text-sm border border-slate-300 dark:border-slate-600 rounded-md p-2 bg-slate-50 dark:bg-slate-700 dark:text-white focus:ring-blue-500 focus:border-blue-500">
+                    <div id="freq-container-${currentStep}-${index}" class="${hiddenClass} mt-3 ml-7">
+                        <input type="text" id="freq-${currentStep}-${index}" value="${freqVal}" placeholder="Quantas vezes? (Ex: 2 vezes, sempre...)" class="w-full text-sm border border-slate-300 dark:border-slate-600 rounded-md p-2 bg-slate-50 dark:bg-slate-700 dark:text-white focus:ring-blue-500 focus:border-blue-500">
                     </div>
                 </div>
-            `).join('');
+                `;
+            }).join('');
 
             appContainer.innerHTML = `
-                <div class="fade-in">
+                <div class="fade-in flex flex-col h-full">
                     <span class="text-xs font-bold text-blue-500 dark:text-blue-400 uppercase tracking-wider">Passo ${currentStep + 1} de ${categories.length}</span>
                     <h2 class="text-xl font-semibold text-slate-800 dark:text-white mt-2 mb-4">${cat.title}</h2>
-                    <p class="text-slate-600 dark:text-slate-400 mb-6 text-sm">Selecione as faltas e informe a frequência aproximada. Na dúvida se cometeu algo, a orientação é confessar.</p>
+                    <p class="text-slate-600 dark:text-slate-400 mb-6 text-sm">Selecione as faltas e informe a frequência aproximada. Na dúvida, confesse.</p>
                     
                     <div class="space-y-2 mb-6">
                         ${sinsHTML}
                     </div>
 
-                    <button onclick="saveCategoryAndNext(${filteredSins.length})" class="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition shadow-sm">Avançar para o próximo passo</button>
+                    <div class="flex gap-3 mt-auto pt-4 border-t border-slate-100 dark:border-slate-700">
+                        <button onclick="goBack()" class="w-1/3 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 py-3 rounded-lg font-medium hover:bg-slate-300 dark:hover:bg-slate-600 transition shadow-sm">Voltar</button>
+                        <button onclick="saveCategoryAndNext(${filteredSins.length})" class="w-2/3 bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition shadow-sm">Avançar</button>
+                    </div>
                 </div>
             `;
         }
@@ -352,26 +370,54 @@
 
         function saveCategoryAndNext(sinsCount) {
             const cat = categories[currentStep];
+            
+            // Cria ou limpa a lista do passo atual
+            confessionData.selections[currentStep] = [];
+
             for(let i = 0; i < sinsCount; i++) {
                 const cb = document.getElementById(`sin-${currentStep}-${i}`);
                 if (cb && cb.checked) {
                     const freqInput = document.getElementById(`freq-${currentStep}-${i}`).value.trim();
-                    const frequency = freqInput ? freqInput : "frequência não especificada";
-                    confessionData.sinsCommitted.push({ categoryTitle: cat.title, sinText: cb.value, frequency: frequency });
+                    const frequency = freqInput ? freqInput : "frequência não informada";
+                    confessionData.selections[currentStep].push({ categoryTitle: cat.title, sinText: cb.value, frequency: frequency });
                 }
             }
             currentStep++;
             renderCategory();
         }
 
+        function goBack() {
+            if (currentStep === 0) {
+                currentStep = -1;
+                startIntro();
+            } else {
+                currentStep--;
+                renderCategory();
+            }
+        }
+
+        function goBackFromFinal() {
+            // Volta para a última pergunta (Sem perder nada)
+            currentStep = categories.length - 1;
+            renderCategory();
+        }
+
         function renderFinalScript() {
+            // Junta todas as seleções em um único array
+            let flatSins = [];
+            for (let i = 0; i < categories.length; i++) {
+                if (confessionData.selections[i]) {
+                    flatSins.push(...confessionData.selections[i]);
+                }
+            }
+
             // Auto-detecta pecado do preceito de 1 ano
             const tempo = confessionData.time;
             if (tempo === "1 ano" || tempo === "vários anos") {
                 const preceitoText = "Deixei de me confessar ao menos uma vez ao ano.";
-                const jaMarcado = confessionData.sinsCommitted.some(s => s.sinText === preceitoText);
+                const jaMarcado = flatSins.some(s => s.sinText === preceitoText);
                 if (!jaMarcado) {
-                    confessionData.sinsCommitted.unshift({
+                    flatSins.unshift({
                         categoryTitle: "3º Mandamento e Preceitos: Domingos, Festas e a Igreja",
                         sinText: preceitoText,
                         frequency: tempo
@@ -379,7 +425,7 @@
                 }
             }
 
-            if (confessionData.sinsCommitted.length === 0) {
+            if (flatSins.length === 0) {
                 appContainer.innerHTML = `
                     <div class="text-center fade-in py-8">
                         <div class="w-16 h-16 bg-green-100 dark:bg-green-900/30 text-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -387,14 +433,17 @@
                         </div>
                         <h2 class="text-2xl font-semibold text-slate-800 dark:text-white mb-2">Exame Concluído</h2>
                         <p class="text-slate-600 dark:text-slate-400">Você não selecionou nenhuma falta nesta reflexão. Agradeça a Deus por Sua graça.</p>
-                        <button onclick="location.reload()" class="mt-6 text-blue-600 dark:text-blue-400 font-medium hover:underline">Fazer Novamente</button>
+                        <div class="flex gap-3 mt-6">
+                            <button onclick="goBackFromFinal()" class="w-1/2 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 py-3 rounded-lg font-medium hover:bg-slate-300 dark:hover:bg-slate-600 transition">Voltar e Revisar</button>
+                            <button onclick="location.reload()" class="w-1/2 bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition">Encerrar</button>
+                        </div>
                     </div>
                 `;
                 return;
             }
 
             let groupedSins = {};
-            confessionData.sinsCommitted.forEach(item => {
+            flatSins.forEach(item => {
                 if (!groupedSins[item.categoryTitle]) { groupedSins[item.categoryTitle] = []; }
                 groupedSins[item.categoryTitle].push(item);
             });
@@ -439,7 +488,10 @@
                         </p>
                     </div>
 
-                    <button onclick="location.reload()" class="w-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-300 dark:border-slate-600 py-3 rounded-lg font-medium hover:bg-slate-200 dark:hover:bg-slate-700 transition">Apagar Rascunho e Sair</button>
+                    <div class="flex flex-col gap-3">
+                        <button onclick="goBackFromFinal()" class="w-full bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 py-3 rounded-lg font-medium hover:bg-slate-300 dark:hover:bg-slate-600 transition">Lembrei de mais alguma coisa (Voltar)</button>
+                        <button onclick="location.reload()" class="w-full bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 border border-red-200 dark:border-red-800 py-3 rounded-lg font-medium hover:bg-red-100 dark:hover:bg-red-900/40 transition">Apagar Rascunho e Sair</button>
+                    </div>
                 </div>
             `;
         }
