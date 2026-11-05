@@ -1,0 +1,16 @@
+{
+  "name": "Guia de Reconciliação",
+  "short_name": "Reconciliação",
+  "description": "Exame de Consciência Privado e Offline",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1e293b",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/81/81144.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

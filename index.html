@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exame de Consciência e Reconciliação</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { darkMode: 'class' }
+    </script>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1e293b">
+    <style>
+        .fade-in { animation: fadeIn 0.4s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        details > summary { list-style: none; }
+        details > summary::-webkit-details-marker { display: none; }
+        details[open] summary ~ * { animation: fadeIn 0.3s ease-in-out; }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 font-sans antialiased min-h-screen flex flex-col transition-colors duration-300">
+
+    <!-- Cabeçalho -->
+    <header class="bg-white dark:bg-slate-800 shadow-sm py-5 px-6 text-center border-b border-slate-200 dark:border-slate-700 relative">
+        <button id="theme-toggle" class="absolute right-4 top-5 p-2 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-600 transition">
+            <svg id="theme-icon-dark" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+            <svg id="theme-icon-light" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"></path></svg>
+        </button>
+        <h1 class="text-2xl font-semibold text-slate-700 dark:text-slate-100">Guia de Reconciliação</h1>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Ferramenta privada de preparação para o Sacramento</p>
+    </header>
+
+    <!-- Navegação por Abas -->
+    <div class="bg-white dark:bg-slate-800 border-b border-slate-200 dark:border-slate-700 sticky top-0 z-10 shadow-sm transition-colors duration-300">
+        <div class="container mx-auto max-w-2xl px-4 flex justify-center space-x-2 py-2">
+            <button onclick="switchTab('instrucoes')" id="tab-instrucoes" class="px-5 py-2.5 rounded-md text-sm font-medium transition bg-slate-100 dark:bg-slate-700 text-slate-800 dark:text-slate-100 hover:bg-slate-200 dark:hover:bg-slate-600">Instruções e Doutrina</button>
+            <button onclick="switchTab('exame')" id="tab-exame" class="px-5 py-2.5 rounded-md text-sm font-medium transition text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-700">Fazer o Exame</button>
+        </div>
+    </div>
+
+    <main class="flex-grow container mx-auto px-4 max-w-2xl mt-8">
+        
+        <div class="bg-blue-50 dark:bg-slate-800 border-l-4 border-blue-400 dark:border-blue-500 p-4 mb-8 rounded-r-md text-sm text-blue-800 dark:text-blue-200 shadow-sm">
+            <strong>Privacidade absoluta:</strong> Tudo o que você ler ou marcar aqui fica apenas neste aparelho. Nenhum dado é salvo.
+        </div>
+
+        <!-- ABA 1: INSTRUÇÕES (A versão completa e profunda) -->
+        <div id="content-instrucoes" class="fade-in">
+            <h2 class="text-xl font-semibold text-slate-700 dark:text-slate-200 mb-4">Os 5 Passos para uma Boa Confissão</h2>
+            <p class="text-slate-600 dark:text-slate-400 text-sm mb-6">Para que a sua confissão seja válida e você seja verdadeiramente perdoado, a Igreja ensina que é necessário preencher cinco condições:</p>
+            
+            <div class="space-y-4">
+                <details class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-sm group">
+                    <summary class="flex justify-between items-center font-medium cursor-pointer list-none p-4 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 transition">
+                        <span>1. Exame de Consciência</span>
+                        <span class="transition group-open:rotate-180">
+                            <svg fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </span>
+                    </summary>
+                    <div class="text-slate-600 dark:text-slate-400 mt-2 p-4 pt-0 border-t border-slate-100 dark:border-slate-700 text-sm leading-relaxed">
+                        É olhar sinceramente para a própria vida diante de Deus. Antes de ir ao sacerdote, devemos examinar cuidadosamente a nossa consciência para lembrarmos de todos os pecados mortais cometidos desde a última confissão, além de quantas vezes cometemos cada um.
+                    </div>
+                </details>
+
+                <details class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-sm group">
+                    <summary class="flex justify-between items-center font-medium cursor-pointer list-none p-4 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 transition">
+                        <span>2. Arrependimento (Contrição)</span>
+                        <span class="transition group-open:rotate-180">
+                            <svg fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </span>
+                    </summary>
+                    <div class="text-slate-600 dark:text-slate-400 mt-2 p-4 pt-0 border-t border-slate-100 dark:border-slate-700 text-sm leading-relaxed">
+                        Não basta reconhecer "Eu fiz isso". É preciso reconhecer interiormente: "Eu fiz algo que ofendeu gravemente a Deus e quero mudar". Esse arrependimento deve sair do fundo do coração.
+                    </div>
+                </details>
+
+                <details class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-sm group">
+                    <summary class="flex justify-between items-center font-medium cursor-pointer list-none p-4 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 transition">
+                        <span>3. Firme Propósito</span>
+                        <span class="transition group-open:rotate-180">
+                            <svg fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </span>
+                    </summary>
+                    <div class="text-slate-600 dark:text-slate-400 mt-2 p-4 pt-0 border-t border-slate-100 dark:border-slate-700 text-sm leading-relaxed">
+                        Trata-se de uma decisão firme de abandonar todos os pecados. Nosso propósito deve ser eficaz: devemos estar dispostos a fazer tudo o que for necessário para não cometer mais os pecados e fugir das ocasiões próximas.
+                    </div>
+                </details>
+
+                <details class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-sm group">
+                    <summary class="flex justify-between items-center font-medium cursor-pointer list-none p-4 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 transition">
+                        <span>4. Confissão ao Sacerdote</span>
+                        <span class="transition group-open:rotate-180">
+                            <svg fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </span>
+                    </summary>
+                    <div class="text-slate-600 dark:text-slate-400 mt-2 p-4 pt-0 border-t border-slate-100 dark:border-slate-700 text-sm leading-relaxed">
+                        É declarar os pecados ao sacerdote com clareza, humildade e sinceridade, sem esconder deliberadamente o que deve ser confessado e sem culpar outras pessoas.
+                    </div>
+                </details>
+
+                <details class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg shadow-sm group">
+                    <summary class="flex justify-between items-center font-medium cursor-pointer list-none p-4 text-slate-700 dark:text-slate-200 hover:text-blue-600 dark:hover:text-blue-400 transition">
+                        <span>5. Penitência e Absolvição</span>
+                        <span class="transition group-open:rotate-180">
+                            <svg fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                        </span>
+                    </summary>
+                    <div class="text-slate-600 dark:text-slate-400 mt-2 p-4 pt-0 border-t border-slate-100 dark:border-slate-700 text-sm leading-relaxed">
+                        A penitência não "paga" pelo perdão, pois o perdão é uma graça de Deus. Ela manifesta o nosso desejo de reparar o dano causado e colaborar com a nossa própria conversão.
+                    </div>
+                </details>
+            </div>
+            
+            <button onclick="switchTab('exame')" class="w-full mt-8 bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition shadow-sm">Começar Exame Guiado</button>
+        </div>
+
+        <!-- ABA 2: EXAME DE CONSCIÊNCIA -->
+        <div id="content-exame" class="hidden">
+            <div id="app-container" class="bg-white dark:bg-slate-800 p-6 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700 fade-in">
+                <!-- O quiz será renderizado aqui -->
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="text-center py-8 mt-4 text-xs text-slate-400 dark:text-slate-500">
+        <p>Desenvolvido com base na Doutrina e nos Mandamentos da Igreja Católica.</p>
+    </footer>
+
+    <script>
+        // === MODO ESCURO ===
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const darkIcon = document.getElementById('theme-icon-dark');
+        const lightIcon = document.getElementById('theme-icon-light');
+        const html = document.documentElement;
+
+        function toggleTheme() {
+            html.classList.toggle('dark');
+            darkIcon.classList.toggle('hidden');
+            lightIcon.classList.toggle('hidden');
+        }
+        themeToggleBtn.addEventListener('click', toggleTheme);
+
+        // === REGISTRO PWA (OFFLINE) ===
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js').catch(console.error);
+        }
+
+        // === NAVEGAÇÃO DE ABAS ===
+        function switchTab(tabId) {
+            document.getElementById('content-instrucoes').classList.add('hidden');
+            document.getElementById('content-exame').classList.add('hidden');
+            
+            // Remove active classes
+            document.getElementById('tab-instrucoes').classList.remove('bg-slate-100', 'dark:bg-slate-700', 'text-slate-800', 'dark:text-slate-100');
+            document.getElementById('tab-instrucoes').classList.add('text-slate-500', 'dark:text-slate-400');
+            
+            document.getElementById('tab-exame').classList.remove('bg-slate-100', 'dark:bg-slate-700', 'text-slate-800', 'dark:text-slate-100');
+            document.getElementById('tab-exame').classList.add('text-slate-500', 'dark:text-slate-400');
+
+            if(tabId === 'instrucoes') {
+                document.getElementById('content-instrucoes').classList.remove('hidden');
+                document.getElementById('tab-instrucoes').classList.add('bg-slate-100', 'dark:bg-slate-700', 'text-slate-800', 'dark:text-slate-100');
+                document.getElementById('tab-instrucoes').classList.remove('text-slate-500', 'dark:text-slate-400');
+            } else {
+                document.getElementById('content-exame').classList.remove('hidden');
+                document.getElementById('tab-exame').classList.add('bg-slate-100', 'dark:bg-slate-700', 'text-slate-800', 'dark:text-slate-100');
+                document.getElementById('tab-exame').classList.remove('text-slate-500', 'dark:text-slate-400');
+                
+                if(currentStep === -2) {
+                    currentStep = -1;
+                    startIntro();
+                }
+            }
+        }
+
+        // === CATEGORIAS COMPLETAS (COM TAGS DE ESTADO DE VIDA) ===
+        const categories = [
+            {
+                title: "1º e 2º Mandamentos: Amor a Deus e Seu Santo Nome",
+                sins: [
+                    { text: "Duvidei voluntariamente da fé ou neguei verdades ensinadas pela Igreja.", tags: ['todos'] },
+                    { text: "Busquei o ocultismo, superstição, espiritismo, búzios, tarô ou feitiçaria.", tags: ['todos'] },
+                    { text: "Abandonei a oração diária e negligenciei minha relação com Deus.", tags: ['todos'] },
+                    { text: "Falei o nome de Deus, de Jesus, de Nossa Senhora ou dos santos sem respeito ou por brincadeira.", tags: ['todos'] },
+                    { text: "Fiz juramentos falsos usando o nome de Deus ou prometi coisas que não cumpri.", tags: ['todos'] }
+                ]
+            },
+            {
+                title: "3º Mandamento e Preceitos: Domingos, Festas e a Igreja",
+                sins: [
+                    { text: "Faltei à Missa aos domingos ou dias de guarda por preguiça ou sem motivo grave.", tags: ['todos'] },
+                    { text: "Trabalhei desnecessariamente aos domingos, não guardando o dia do Senhor.", tags: ['todos'] },
+                    { text: "Recebi a Eucaristia sabendo que estava em pecado mortal, sem me confessar.", tags: ['todos'] },
+                    { text: "Deixei de me confessar ao menos uma vez ao ano.", tags: ['todos'] },
+                    { text: "Não guardei jejum ou abstinência de carne na Quarta-feira de Cinzas ou Sexta-feira Santa.", tags: ['todos'] },
+                    { text: "Fui egoísta e não contribuí para as necessidades materiais da minha Igreja.", tags: ['todos'] }
+                ]
+            },
+            {
+                title: "4º Mandamento: Honrar Pai e Mãe",
+                sins: [
+                    { text: "Faltei com respeito, ofendi ou guardei mágoa profunda de meus pais.", tags: ['todos'] },
+                    { text: "Fui negligente no cuidado com meus pais idosos ou doentes.", tags: ['todos'] },
+                    { text: "Como pai/mãe, negligenciei a educação moral e religiosa dos meus filhos.", tags: ['casado'] },
+                    { text: "Faltei com amor, paciência e caridade com as pessoas da minha própria família.", tags: ['todos'] }
+                ]
+            },
+            {
+                title: "5º Mandamento: Não Matar (A Vida e a Paz)",
+                sins: [
+                    { text: "Alimentei ódio, rancor, inveja amarga ou desejo de vingança contra alguém.", tags: ['todos'] },
+                    { text: "Agredi alguém fisicamente ou com palavras (xingamentos severos, humilhações).", tags: ['todos'] },
+                    { text: "Apoiei, aconselhei ou pratiquei o aborto.", tags: ['todos'] },
+                    { text: "Prejudiquei minha saúde embriagando-me com álcool ou usando drogas.", tags: ['todos'] },
+                    { text: "Fui imprudente no trânsito colocando a vida de outros em risco.", tags: ['todos'] }
+                ]
+            },
+            {
+                title: "6º e 9º Mandamentos: Castidade e Pureza",
+                sins: [
+                    { text: "Consumi pornografia (vídeos, revistas, imagens).", tags: ['todos'] },
+                    { text: "Pratiquei atos impuros comigo mesmo(a) (masturbação).", tags: ['todos'] },
+                    { text: "Tive relações sexuais fora do casamento.", tags: ['solteiro', 'jovem'] },
+                    { text: "Fui infiel no casamento (adultério, seja em atos ou mensagens virtuais).", tags: ['casado'] },
+                    { text: "Consenti voluntariamente em pensamentos, fantasias e desejos impuros.", tags: ['todos'] },
+                    { text: "Coloquei-me livremente em ocasiões de pecado (amizades, redes sociais ou ambientes prejudiciais).", tags: ['todos'] }
+                ]
+            },
+            {
+                title: "7º e 10º Mandamentos: Bens e Justiça",
+                sins: [
+                    { text: "Fui desonesto no trabalho ou nos meus negócios.", tags: ['todos'] },
+                    { text: "Peguei algo que não me pertencia (roubo) ou não devolvi o que me emprestaram.", tags: ['todos'] },
+                    { text: "Não paguei minhas dívidas propositalmente, mesmo tendo condições.", tags: ['todos'] },
+                    { text: "Comprei ou vendi produtos falsificados, ou prejudiquei os bens de terceiros.", tags: ['todos'] },
+                    { text: "Alimentei cobiça ou inveja pelas posses, talentos ou vida de outras pessoas.", tags: ['todos'] }
+                ]
+            },
+            {
+                title: "8º Mandamento: A Verdade",
+                sins: [
+                    { text: "Menti com o objetivo de enganar ou me livrar de responsabilidades.", tags: ['todos'] },
+                    { text: "Fiz fofocas, espalhei boatos ou revelei defeitos ocultos dos outros (difamação).", tags: ['todos'] },
+                    { text: "Inventei coisas ruins sobre alguém que não eram verdade (calúnia).", tags: ['todos'] },
+                    { text: "Fui orgulhoso(a) ou vaidoso(a), recusando-me a aceitar meus erros.", tags: ['todos'] }
+                ]
+            }
+        ];
+
+        let currentStep = -2;
+        let confessionData = { time: "", state: "", sinsCommitted: [] };
+        const appContainer = document.getElementById('app-container');
+
+        function startIntro() {
+            appContainer.innerHTML = `
+                <div class="fade-in">
+                    <h2 class="text-xl font-semibold text-slate-800 dark:text-white mb-4">Preparação Inicial</h2>
+                    
+                    <div class="mb-5">
+                        <label class="block font-medium text-slate-700 dark:text-slate-300 mb-2 text-sm">Há quanto tempo foi sua última confissão?</label>
+                        <select id="time-select" class="w-full border border-slate-300 dark:border-slate-600 rounded-lg p-3 bg-white dark:bg-slate-700 dark:text-white shadow-sm">
+                            <option value="1 semana">Há 1 semana</option>
+                            <option value="1 mês">Há 1 mês</option>
+                            <option value="alguns meses">Há alguns meses</option>
+                            <option value="1 ano">Há 1 ano</option>
+                            <option value="vários anos">Há vários anos</option>
+                            <option value="não me lembro exatamente">Não me lembro exatamente quando foi</option>
+                            <option value="esta é a minha primeira confissão">Esta é a minha primeira confissão</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-6">
+                        <label class="block font-medium text-slate-700 dark:text-slate-300 mb-2 text-sm">Qual o seu estado de vida?</label>
+                        <select id="state-select" class="w-full border border-slate-300 dark:border-slate-600 rounded-lg p-3 bg-white dark:bg-slate-700 dark:text-white shadow-sm">
+                            <option value="casado">Casado(a)</option>
+                            <option value="solteiro">Solteiro(a) / Namorando</option>
+                            <option value="jovem">Jovem / Adolescente</option>
+                        </select>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-2">Isso ajuda a adaptar algumas perguntas à sua realidade.</p>
+                    </div>
+
+                    <div class="bg-indigo-50 dark:bg-indigo-900/30 p-4 rounded-lg mb-6 border border-indigo-100 dark:border-indigo-800">
+                        <h3 class="font-bold text-indigo-800 dark:text-indigo-300 mb-2 text-sm flex items-center gap-2">
+                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" clip-rule="evenodd"></path></svg>
+                            Oração Preparatória
+                        </h3>
+                        <p class="text-sm text-indigo-700 dark:text-indigo-400 italic font-serif">"Vinde, Espírito Santo, iluminai a minha mente para que eu conheça os meus pecados, e tocai o meu coração para que eu me arrependa verdadeiramente deles. Amém."</p>
+                    </div>
+
+                    <button onclick="saveIntroAndNext()" class="w-full bg-slate-800 dark:bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-slate-700 dark:hover:bg-blue-700 transition shadow-sm">Continuar Exame</button>
+                </div>
+            `;
+        }
+
+        function saveIntroAndNext() {
+            confessionData.time = document.getElementById('time-select').value;
+            confessionData.state = document.getElementById('state-select').value;
+            currentStep = 0;
+            renderCategory();
+        }
+
+        function renderCategory() {
+            if (currentStep >= categories.length) {
+                renderFinalScript();
+                return;
+            }
+
+            const cat = categories[currentStep];
+            
+            // Filtra os pecados da categoria baseados no estado de vida
+            const filteredSins = cat.sins.filter(s => s.tags.includes('todos') || s.tags.includes(confessionData.state));
+
+            if (filteredSins.length === 0) {
+                currentStep++;
+                renderCategory();
+                return;
+            }
+
+            let sinsHTML = filteredSins.map((sin, index) => `
+                <div class="border border-slate-200 dark:border-slate-700 rounded-lg p-3 mb-3 hover:bg-slate-50 dark:hover:bg-slate-700 transition bg-white dark:bg-slate-800 shadow-sm">
+                    <label class="flex items-start gap-3 cursor-pointer">
+                        <input type="checkbox" id="sin-${currentStep}-${index}" value="${sin.text}" class="mt-1 w-4 h-4 text-blue-600 rounded border-slate-300 dark:border-slate-600 focus:ring-blue-500 dark:bg-slate-700" onchange="toggleFreq(${currentStep}, ${index})">
+                        <span class="text-slate-700 dark:text-slate-300 text-sm leading-snug">${sin.text}</span>
+                    </label>
+                    <div id="freq-container-${currentStep}-${index}" class="hidden mt-3 ml-7">
+                        <input type="text" id="freq-${currentStep}-${index}" placeholder="Quantas vezes? (Ex: 2 vezes, sempre...)" class="w-full text-sm border border-slate-300 dark:border-slate-600 rounded-md p-2 bg-slate-50 dark:bg-slate-700 dark:text-white focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+                </div>
+            `).join('');
+
+            appContainer.innerHTML = `
+                <div class="fade-in">
+                    <span class="text-xs font-bold text-blue-500 dark:text-blue-400 uppercase tracking-wider">Passo ${currentStep + 1} de ${categories.length}</span>
+                    <h2 class="text-xl font-semibold text-slate-800 dark:text-white mt-2 mb-4">${cat.title}</h2>
+                    <p class="text-slate-600 dark:text-slate-400 mb-6 text-sm">Selecione as faltas e informe a frequência aproximada. Na dúvida se cometeu algo, a orientação é confessar.</p>
+                    
+                    <div class="space-y-2 mb-6">
+                        ${sinsHTML}
+                    </div>
+
+                    <button onclick="saveCategoryAndNext(${filteredSins.length})" class="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition shadow-sm">Avançar para o próximo passo</button>
+                </div>
+            `;
+        }
+
+        function toggleFreq(step, index) {
+            const container = document.getElementById(`freq-container-${step}-${index}`);
+            document.getElementById(`sin-${step}-${index}`).checked ? container.classList.remove('hidden') : container.classList.add('hidden');
+        }
+
+        function saveCategoryAndNext(sinsCount) {
+            const cat = categories[currentStep];
+            for(let i = 0; i < sinsCount; i++) {
+                const cb = document.getElementById(`sin-${currentStep}-${i}`);
+                if (cb && cb.checked) {
+                    const freqInput = document.getElementById(`freq-${currentStep}-${i}`).value.trim();
+                    const frequency = freqInput ? freqInput : "frequência não especificada";
+                    confessionData.sinsCommitted.push({ categoryTitle: cat.title, sinText: cb.value, frequency: frequency });
+                }
+            }
+            currentStep++;
+            renderCategory();
+        }
+
+        function renderFinalScript() {
+            // Auto-detecta pecado do preceito de 1 ano
+            const tempo = confessionData.time;
+            if (tempo === "1 ano" || tempo === "vários anos") {
+                const preceitoText = "Deixei de me confessar ao menos uma vez ao ano.";
+                const jaMarcado = confessionData.sinsCommitted.some(s => s.sinText === preceitoText);
+                if (!jaMarcado) {
+                    confessionData.sinsCommitted.unshift({
+                        categoryTitle: "3º Mandamento e Preceitos: Domingos, Festas e a Igreja",
+                        sinText: preceitoText,
+                        frequency: tempo
+                    });
+                }
+            }
+
+            if (confessionData.sinsCommitted.length === 0) {
+                appContainer.innerHTML = `
+                    <div class="text-center fade-in py-8">
+                        <div class="w-16 h-16 bg-green-100 dark:bg-green-900/30 text-green-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        </div>
+                        <h2 class="text-2xl font-semibold text-slate-800 dark:text-white mb-2">Exame Concluído</h2>
+                        <p class="text-slate-600 dark:text-slate-400">Você não selecionou nenhuma falta nesta reflexão. Agradeça a Deus por Sua graça.</p>
+                        <button onclick="location.reload()" class="mt-6 text-blue-600 dark:text-blue-400 font-medium hover:underline">Fazer Novamente</button>
+                    </div>
+                `;
+                return;
+            }
+
+            let groupedSins = {};
+            confessionData.sinsCommitted.forEach(item => {
+                if (!groupedSins[item.categoryTitle]) { groupedSins[item.categoryTitle] = []; }
+                groupedSins[item.categoryTitle].push(item);
+            });
+
+            let sinsListHTML = "";
+            for (const [category, sins] of Object.entries(groupedSins)) {
+                sinsListHTML += `<li class="mt-4 text-slate-700 dark:text-slate-300 italic border-l-2 border-slate-300 dark:border-slate-500 pl-3 mb-2 font-semibold text-[11px] text-slate-400 dark:text-slate-500 uppercase tracking-wider">${category}</li>`;
+                sins.forEach(s => {
+                    sinsListHTML += `<li class="mb-2 pl-3 dark:text-slate-200">• ${s.sinText} <strong class="text-blue-700 dark:text-blue-400 font-medium">(${s.frequency})</strong>.</li>`;
+                });
+            }
+
+            const timeStr = tempo === "esta é a minha primeira confissão" 
+                ? "Padre, esta é a minha primeira confissão." 
+                : `Padre, minha última confissão foi ${tempo}.`;
+
+            appContainer.innerHTML = `
+                <div class="fade-in">
+                    <h2 class="text-2xl font-semibold text-slate-800 dark:text-white mb-2">Seu Roteiro de Confissão</h2>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm mb-6">Leia este texto diretamente para o padre. A estrutura ajuda a manter a clareza e a humildade necessárias.</p>
+                    
+                    <div class="bg-amber-50 dark:bg-slate-700 p-6 rounded-lg border border-amber-200 dark:border-slate-600 mb-6 font-serif text-slate-800 dark:text-slate-200 text-lg leading-relaxed shadow-inner">
+                        <p class="mb-4 text-slate-500 dark:text-slate-400 italic text-sm">-- Faça o sinal da cruz --</p>
+                        <p class="mb-4 font-semibold">"Padre, peço a sua bênção.</p>
+                        <p class="mb-4">${timeStr} Desde então, acuso-me dos seguintes pecados:"</p>
+                        
+                        <ul class="mb-6 text-base font-sans font-normal">
+                            ${sinsListHTML}
+                        </ul>
+
+                        <p class="mb-4 font-semibold">"Destes e de todos os meus pecados dos quais não me lembro agora, peço perdão a Deus, e a você, Padre, peço a penitência e a absolvição."</p>
+                    </div>
+
+                    <div class="bg-blue-800 dark:bg-blue-900 text-white p-6 rounded-lg shadow-md mb-8">
+                        <h3 class="font-bold text-lg mb-2 flex items-center gap-2">
+                            <svg class="w-5 h-5 text-blue-300" fill="currentColor" viewBox="0 0 20 20"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/><path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"/></svg>
+                            Ato de Contrição
+                        </h3>
+                        <p class="text-blue-200 dark:text-blue-300 text-sm mb-4">Após ouvir os conselhos e receber a sua penitência, reze esta oração quando o padre pedir:</p>
+                        <p class="font-serif text-lg leading-relaxed italic text-blue-50">
+                            "Meu Deus, eu me arrependo de todo o coração de Vos ter ofendido, porque sois infinitamente bom e amável. Prometo firmemente, com o auxílio da Vossa graça, não mais pecar e fugir das ocasiões de pecado. Amém."
+                        </p>
+                    </div>
+
+                    <button onclick="location.reload()" class="w-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-300 dark:border-slate-600 py-3 rounded-lg font-medium hover:bg-slate-200 dark:hover:bg-slate-700 transition">Apagar Rascunho e Sair</button>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
